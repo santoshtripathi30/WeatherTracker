@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Weather";
+}
+
+<!-- Main Container for the Page -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Weather Information</h2>
+
+            <!-- Form to Get City Name -->
+            <form method="post" asp-controller="Weather" asp-action="GetWeather">
+                <div class="mb-3">
+                    <label for="city" class="form-label">Enter City:</label>
+                    <input type="text" class="form-control" id="city" name="city" placeholder="Enter city name" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Get Weather</button>
+            </form>
+
+            <!-- Weather Information Section -->
+            @if (ViewBag.Weather != null)
+            {
+                <div class="alert alert-success mt-4">
+                    <h4 class="alert-heading">Weather Details</h4>
+                    <p>@ViewBag.Weather</p>
+                </div>
+            }
+
+            <!-- Error or No City Entered -->
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-danger mt-4">
+                    <strong>Warning!</strong> @ViewBag.Message
+                </div>
+            }
+        </div>
+    </div>
+</div>
