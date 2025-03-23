@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Deploy to Azure Static Web Apps
 
 on:
   push:
@@ -6,39 +6,22 @@ on:
   pull_request:
     branches: [ "trunk" ]
 
-env:
-  RESOURCE_GROUP: "weather-tracker-rg"
-  ACR_NAME: "weather-tracker-arc"  # Change to your Azure Container Registry name
-  IMAGE_NAME: "weather-tracker-img"
-  IMAGE_TAG: "v1"
-  REGION: "eastus2"
 
 jobs:
 
-  build-and-push:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Azure Login
-        uses: azure/login@v1
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Create Azure Resource Group (if not exists)
-        run: az group create --name $RESOURCE_GROUP --location $REGION || true
-
-      - name: Create ACR (if not exists)
-        run: az acr create --resource-group $RESOURCE_GROUP --name $ACR_NAME --sku Basic --location $REGION || true
-
-      - name: Login to Azure Container Registry
-        run: az acr login --name $ACR_NAME
-
-      - name: Build the Docker Image
-        run: docker build . --file Dockerfile --tag $ACR_NAME.azurecr.io/$IMAGE_NAME:$IMAGE_TAG
-
-      - name: Push Docker Image to ACR
-        run: docker push $ACR_NAME.azurecr.io/$IMAGE_NAME:$IMAGE_TAG
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+	  repo_token: ${{ secrets.GITHUB_TOKEN }}
+	  action: "upload"
+	  app_location: "WeatherTracker.StaticWeb/src"  # Update this if your static files are elsewhere
+          output_location: ""  # Change if using a build process (e.g., React, Angular)
 
