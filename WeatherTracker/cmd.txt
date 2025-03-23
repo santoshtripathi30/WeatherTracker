@@ -1,0 +1,47 @@
+﻿RESOURCE_GROUP="weather-tracker-rg"
+ACR_NAME="weather-tracker-arc"   # Must be globally unique
+IMAGE_NAME="weather-tracker-img"
+IMAGE_TAG="v1"
+REGION="eastus2"
+
+
+
+
+4. Publish the container image to Azure Container Registry.
+	Azure CLI installed: Ensure you have the Azure CLI installed and logged in.
+	> az login
+	> az group create --name $RESOURCE_GROUP --location $REGION
+
+	Azure Container Registry (ACR) created: If you don’t have one, create it:
+	> az acr create --resource-group $RESOURCE_GROUP --name $ACR_NAME --sku Basic --location $REGION
+
+	Log in to ACR
+	> az acr login --name $ACR_NAME
+
+	Tag the Image
+	First, get your local image name:
+	> docker images
+	
+	Now, tag the image for ACR:
+	> docker build -t $IMAGE_NAME:latest .
+
+	Now, push the image:
+	> docker push $ACR_NAME.azurecr.io/$IMAGE_NAME:$IMAGE_TAG
+
+	Verify the Image in ACR
+	> az acr repository list --name $ACR_NAME --output table
+
+	> az acr repository show-tags --name $ACR_NAME --repository $IMAGE_NAME --output table
+
+
+6. Deploy the Image (Optional)
+
+az container create --resource-group $RESOURCE_GROUP \
+  --name weathertracker-container \
+  --image $ACR_NAME.azurecr.io/$IMAGE_NAME:$IMAGE_TAG \
+  --dns-name-label weathertracker-demo \
+  --registry-login-server $ACR_NAME.azurecr.io \
+  --registry-username $(az acr credential show --name $ACR_NAME --query "username" -o tsv) \
+  --registry-password $(az acr credential show --name $ACR_NAME --query "passwords[0].value" -o tsv) \
+  --ports 8080 --location $REGION
+

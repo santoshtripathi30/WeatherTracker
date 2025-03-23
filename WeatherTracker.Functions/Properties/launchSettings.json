@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "WeatherTracker.Functions": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7261"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 33997,
+      "useSSL": false
+    }
+  }
+}

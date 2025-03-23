@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-custom {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="text-center mb-4">Weather Tracker</h2>
+
+        <!-- Country Dropdown -->
+        <div class="mb-3">
+            <label for="countryDropdown" class="form-label">Select Country</label>
+            <select id="countryDropdown" class="form-select"></select>
+        </div>
+
+        <!-- City Dropdown -->
+        <div class="mb-3">
+            <label for="cityDropdown" class="form-label">Select City</label>
+            <select id="cityDropdown" class="form-select"></select>
+        </div>
+
+        <!-- Email Input -->
+        <div class="mb-3">
+            <label for="emailInput" class="form-label">Enter Email</label>
+            <input type="email" id="emailInput" class="form-control" placeholder="yourname@example.com">
+        </div>
+
+        <!-- Buttons -->
+        <div class="mb-3">
+            <button class="btn btn-primary btn-custom" onclick="checkWeather()">Check Weather</button>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-success btn-custom" onclick="registerEmail()">Register for Alerts</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        // Country and City Data
+        const countries = [
+            "United States", "India", "United Arab Emirates", "Australia",
+            "Finland", "France", "Japan", "China", "South Africa"
+        ];
+
+        const cities = {
+            "United States": ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia",
+                "San Antonio", "San Diego", "Dallas", "San Jose", "Austin", "Jacksonville",
+                "Fort Worth", "Columbus", "San Francisco", "Charlotte", "Indianapolis",
+                "Seattle", "Denver", "Washington", "Boston", "El Paso", "Detroit", "Nashville", "Portland"],
+            "India": ["Mumbai", "Delhi", "Bangalore", "Hyderabad", "Chennai", "Kolkata",
+                "Ahmedabad", "Pune", "Jaipur", "Lucknow", "Kanpur", "Nagpur", "Indore",
+                "Thane", "Bhopal", "Visakhapatnam", "Patna", "Vadodara", "Ghaziabad",
+                "Ludhiana", "Agra", "Nashik", "Faridabad", "Meerut", "Rajkot"],
+            "United Arab Emirates": ["Dubai", "Abu Dhabi", "Sharjah", "Al Ain", "Fujairah", "Ajman",
+                "Ras Al Khaimah", "Umm Al-Quwain", "Jebel Ali", "Hatta", "Dibba Al-Fujairah",
+                "Kalba", "Al Madam", "Liwa Oasis", "Al Rams", "Masafi", "Khor Fakkan",
+                "Mirfa", "Ruways", "Dhaid", "Al Hamriya", "Sila", "Ghayathi", "Al Faqa", "Ghubrah"],
+            "Australia": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide", "Gold Coast",
+                "Canberra", "Newcastle", "Wollongong", "Hobart", "Geelong", "Cairns",
+                "Darwin", "Townsville", "Toowoomba", "Bendigo", "Ballarat", "Rockhampton",
+                "Launceston", "Mackay", "Bundaberg", "Alice Springs", "Coffs Harbour",
+                "Bunbury", "Armidale"],
+            "Finland": ["Helsinki", "Espoo", "Tampere", "Vantaa", "Oulu", "Turku", "Jyväskylä",
+                "Lahti", "Kuopio", "Pori", "Lappeenranta", "Vaasa", "Joensuu", "Hämeenlinna",
+                "Kotka", "Rovaniemi", "Seinäjoki", "Mikkeli", "Kokkola", "Kajaani",
+                "Rauma", "Savonlinna", "Salo", "Hyvinkää", "Porvoo"],
+        };
+
+        // Populate Countries
+        function populateCountries() {
+            let countryDropdown = $("#countryDropdown");
+            countryDropdown.append(`<option value="">Select Country</option>`);
+            countries.forEach(country => {
+                countryDropdown.append(`<option value="${country}">${country}</option>`);
+            });
+            countryDropdown.select2();
+        }
+
+        // Populate Cities Based on Selected Country
+        function populateCities() {
+            let selectedCountry = $("#countryDropdown").val();
+            let cityDropdown = $("#cityDropdown");
+            cityDropdown.empty();
+            cityDropdown.append(`<option value="">Select City</option>`);
+
+            if (selectedCountry && cities[selectedCountry]) {
+                cities[selectedCountry].forEach(city => {
+                    cityDropdown.append(`<option value="${city}">${city}</option>`);
+                });
+            }
+            cityDropdown.select2();
+        }
+
+        // Function to Check Weather (Mockup)
+        function checkWeather() {
+            let city = $("#cityDropdown").val();
+            if (!city) {
+                alert("Please select a city.");
+                return;
+            }
+            alert(`Fetching weather for ${city}...`);
+        }
+
+        // Function to Register Email for Alerts
+        function registerEmail() {
+            let email = $("#emailInput").val();
+            let city = $("#cityDropdown").val();
+            if (!email || !email.includes("@")) {
+                alert("Please enter a valid email.");
+                return;
+            }
+            if (!city) {
+                alert("Please select a city.");
+                return;
+            }
+            alert(`Registered ${email} for weather alerts in ${city}.`);
+        }
+
+        // Initialize Dropdowns on Page Load
+        $(document).ready(function () {
+            populateCountries();
+            $("#countryDropdown").change(populateCities);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,9 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35806.99 d17.13
+VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherTracker", "WeatherTracker\WeatherTracker.csproj", "{3B5AAA42-D7D7-4629-ADCD-1F7DDC53CE09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherTracker.Functions", "WeatherTracker.Functions\WeatherTracker.Functions.csproj", "{CC5B14D3-DF76-42E1-B43C-59F27BA2558B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WeatherTracker.StaticWeb", "WeatherTracker.StaticWeb", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{23BC7EB6-B240-4255-AB35-A376E2AF3277}"
+	ProjectSection(SolutionItems) = preProject
+		WeatherTracker\Views\index.html = WeatherTracker\Views\index.html
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +24,16 @@ Global
 		{3B5AAA42-D7D7-4629-ADCD-1F7DDC53CE09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B5AAA42-D7D7-4629-ADCD-1F7DDC53CE09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B5AAA42-D7D7-4629-ADCD-1F7DDC53CE09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC5B14D3-DF76-42E1-B43C-59F27BA2558B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC5B14D3-DF76-42E1-B43C-59F27BA2558B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC5B14D3-DF76-42E1-B43C-59F27BA2558B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5B14D3-DF76-42E1-B43C-59F27BA2558B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{23BC7EB6-B240-4255-AB35-A376E2AF3277} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB5AE365-DCB0-4BE3-A63C-A15BA402ED3B}
