@@ -8,10 +8,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherTracker.Functions", "WeatherTracker.Functions\WeatherTracker.Functions.csproj", "{CC5B14D3-DF76-42E1-B43C-59F27BA2558B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WeatherTracker.StaticWeb", "WeatherTracker.StaticWeb", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		WeatherTracker.StaticWeb\src\index.html = WeatherTracker.StaticWeb\src\index.html
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{23BC7EB6-B240-4255-AB35-A376E2AF3277}"
 	ProjectSection(SolutionItems) = preProject
-		WeatherTracker\Views\index.html = WeatherTracker\Views\index.html
+		WeatherTracker.StaticWeb\src\index.html = WeatherTracker.StaticWeb\src\index.html
 	EndProjectSection
 EndProject
 Global
